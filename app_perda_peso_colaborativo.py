@@ -21,8 +21,11 @@ PESOS_FILE = os.path.join(DATA_DIR, "pesos.csv")
 # CRIAÇÃO DE ARQUIVOS INICIAIS
 # =========================
 def ensure_storage():
-    if not os.path.exists(USERS_FILE):
-        df_users = pd.DataFrame(columns=["usuario", "senha", "moderador"])
+    os.makedirs(DATA_DIR, exist_ok=True)
+    os.makedirs(UPLOAD_DIR, exist_ok=True)
+
+    # Garante que o arquivo de usuários seja recriado corretamente
+    if not os.path.exists(USERS_FILE) or os.path.getsize(USERS_FILE) == 0:
         usuarios = [
             {"usuario": "Luan", "senha": "240519", "moderador": True},
             {"usuario": "Jaqueline", "senha": "1234", "moderador": False},
@@ -31,7 +34,7 @@ def ensure_storage():
             {"usuario": "Rebeca", "senha": "1234", "moderador": False},
             {"usuario": "Tainara", "senha": "1234", "moderador": False},
         ]
-        df_users = pd.concat([df_users, pd.DataFrame(usuarios)], ignore_index=True)
+        df_users = pd.DataFrame(usuarios)
         df_users.to_csv(USERS_FILE, index=False)
 
     if not os.path.exists(PESOS_FILE):
