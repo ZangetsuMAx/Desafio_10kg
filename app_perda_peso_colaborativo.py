@@ -97,7 +97,7 @@ if not st.session_state.logged_in:
             st.session_state.username = str(input_user)
             st.session_state.role = match.iloc[0]["role"]
             st.sidebar.success(f"Logado como {st.session_state.username} ({st.session_state.role})")
-            st.experimental_rerun()
+            st.rerun()
         else:
             st.sidebar.error("Usuário ou senha incorretos!")
     st.sidebar.markdown("---")
